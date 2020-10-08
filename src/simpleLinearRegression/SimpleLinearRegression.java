@@ -1,7 +1,11 @@
+package simpleLinearRegression;
+
 public class SimpleLinearRegression {
-    private final double intercept, slope;
-    private final double r2;
-    private final double svar0, svar1;
+    private final double beta_1, beta_0;
+
+    public static void main(String[] args) {
+        System.out.println("Hello world!");
+    }
 
     public SimpleLinearRegression(double[] x, double[] y) {
         if (x.length != y.length) {
@@ -9,68 +13,34 @@ public class SimpleLinearRegression {
         }
         int n = x.length;
 
-        double sumx = 0.0, sumy = 0.0, sumx2 = 0.0;
+        // Calculate the summatory of x, x^2, xy and y
+        double sigma_x = 0.0, sigma_y = 0.0, sigma_xy = 0.0, sigma_x2 = 0.0;
         for (int i = 0; i < n; i++) {
-            sumx += x[i];
-            sumx2 += x[i] * x[i];
-            sumy += y[i];
-        }
-        double xbar = sumx / n;
-        double ybar = sumy / n;
-
-        double xxbar = 0.0, yybar = 0.0, xybar = 0.0;
-        for (int i = 0; i < n; i++) {
-            xxbar += (x[i] - xbar) * (x[i] - xbar);
-            yybar += (y[i] - ybar) * (y[i] - ybar);
-            xybar += (x[i] - xbar) * (y[i] - ybar);
-        }
-        slope = xybar / xxbar;
-        intercept = ybar - slope * xbar;
-
-        double rss = 0.0;
-        double ssr = 0.0;
-        for (int i = 0; i < n; i++) {
-            double fit = slope * x[i] + intercept;
-            rss += (fit - y[i]) * (fit - y[i]);
-            ssr += (fit - ybar) * (fit - ybar);
+            sigma_x += x[i];
+            sigma_x2 += x[i] * x[i];
+            sigma_xy += x[i] * y[i];
+            sigma_y += y[i];
         }
 
-        int degreesOfFreedom = n - 2;
-        r2 = ssr / yybar;
-        double svar = rss / degreesOfFreedom;
-        svar1 = svar / xxbar;
-        svar0 = svar / n + xbar * xbar * svar1;
+        beta_1 = (sigma_xy - sigma_x * sigma_y) / (sigma_x2 - sigma_x * sigma_x);
+        beta_0 = (sigma_y - beta_1 * sigma_x) / n;
     }
 
-    public double intercept() {
-        return intercept;
+    public double beta_1() {
+        return beta_1;
     }
 
-    public double slope() {
-        return slope;
-    }
-
-    public double R2() {
-        return r2;
-    }
-
-    public double interceptStdErr() {
-        return Math.sqrt(svar0);
-    }
-
-    public double slopeStdErr() {
-        return Math.sqrt(svar1);
+    public double beta_0() {
+        return beta_0;
     }
 
     public double predict(double x) {
-        return slope * x + intercept;
+        return beta_0 * x + beta_1;
     }
 
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append(String.format("%.2f n + %.2f", slope(), intercept()));
-        s.append("  (R^2 = " + String.format("%.3f", R2()) + ")");
+        s.append(String.format("%.2f n + %.2f", beta_0(), beta_1()));
         return s.toString();
     }
-
 }

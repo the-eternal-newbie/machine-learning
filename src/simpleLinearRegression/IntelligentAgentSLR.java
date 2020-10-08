@@ -1,6 +1,7 @@
 package simpleLinearRegression;
 
 import jade.core.Agent;
+import simpleLinearRegression.*;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
