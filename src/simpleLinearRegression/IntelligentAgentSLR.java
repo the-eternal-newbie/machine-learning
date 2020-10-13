@@ -1,15 +1,11 @@
 package simpleLinearRegression;
 
 import jade.core.Agent;
-import simpleLinearRegression.*;
 import jade.core.behaviours.Behaviour;
-import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.OneShotBehaviour;
 
 public class IntelligentAgentSLR extends Agent {
     private static final long serialVersionUID = 1L;
     private int i = 0;
-    private int j = 0;
     private double sigma_x = 0.0, sigma_y = 0.0, sigma_xy = 0.0, sigma_x2 = 0.0;
     private static double beta_1 = 0.0;
     private static double beta_0 = 0.0;
@@ -19,11 +15,19 @@ public class IntelligentAgentSLR extends Agent {
             64445.00, 57189.00, 63218.00, 55794.00, 56957.00, 57081.00, 61111.00, 67938.00, 66029.00, 83088.00,
             81363.00, 93940.00, 91738.00, 98273.00, 101302.00, 113812.00, 109431.00, 105582.00, 116969.00, 112635.00,
             122391.00, 121872.00 };
-    private int n = x.length; 
+    private int n = x.length;
+    private double predictX = 0.0;
+
     protected void setup() {
         System.out.println("Agent " + getLocalName() + " started.");
-        addBehaviour(new Train());
-        addBehaviour(new Predict());
+
+        Object[] args = getArguments();
+        if (args != null && args.length > 0) {
+            addBehaviour(new Train());
+            addBehaviour(new Predict());
+            predictX = Float.parseFloat((String) args[0]);
+            System.out.println("x to predict = " + predictX);
+        }
 
     }
 
@@ -59,23 +63,22 @@ public class IntelligentAgentSLR extends Agent {
         public void action() {
             if (i < n) {
                 System.out.println("Training yet, I cannot predict!");
-            } else {                
-                double predicted_y = (beta_1 * x[j]) + beta_0;
-                System.out.print("\nPredict x = " + x[j] + ", Predicted y = " + predicted_y);
-                j++;
+            } else {
+                StringBuilder s = new StringBuilder();
+                s.append(String.format("%.2f + %.2fx", beta_0, beta_1));
+                System.out.print("\nSimple linear regression equation: " + s.toString());
             }
         }
 
         @Override
         public boolean done() {
-            return j == n;
+            return i == n;
         }
 
         @Override
         public int onEnd() {
-            StringBuilder s = new StringBuilder();
-            s.append(String.format("%.2f + %.2fx", beta_0, beta_1));
-            System.out.print("\nSimple linear regression equation: " + s.toString());
+            double predicted_y = (beta_1 * predictX) + beta_0;
+            System.out.print(String.format("\nx: %.2f | predicted y: %.2f\n", predictX, predicted_y));
             myAgent.doDelete();
             return super.onEnd();
         }

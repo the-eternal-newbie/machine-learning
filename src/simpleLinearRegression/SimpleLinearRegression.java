@@ -37,9 +37,22 @@ public class SimpleLinearRegression {
                 }
                 process(x_data, y_data);
                 System.out.print("\nSimple linear regression equation: " + equation());
-                for (int i = 0; i < n; i++) {
-                    System.out.print(String.format("\nx: %.2f | predicted y: %.2f", x_data[i], predict(x_data[i])));
+                
+                br = new BufferedReader(new InputStreamReader(System.in));
+                double x_hat = 0.0;
+                while(x_hat >= 0) {                    
+                    System.out.print("\nPlease specify the x value to predict y: ");
+                    try {
+                        x_hat = Float.parseFloat(br.readLine());
+                    } catch (NumberFormatException nfe) {
+                        break;
+                    }
+                    System.out.print(String.format("\nx: %.2f | predicted y: %.2f\n", x_hat, predict(x_hat)));
                 }
+                // for (int i = 0; i < n; i++) {
+                //     System.out.print(String.format("\nx: %.2f | predicted y: %.2f", x_data[i], predict(x_data[i])));
+                // }
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
