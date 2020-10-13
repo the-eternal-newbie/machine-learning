@@ -1,3 +1,5 @@
+package simpleAgent;
+
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
@@ -15,6 +17,10 @@ import jade.core.behaviours.OneShotBehaviour;
  */
 public class SimpleAgent extends Agent {
 
+  /**
+   *
+   */
+  private static final long serialVersionUID = 1L;
   private int iterator = 1;
 
   protected void setup() {
@@ -22,6 +28,11 @@ public class SimpleAgent extends Agent {
 
     // Add the CyclicBehaviour
     addBehaviour(new CyclicBehaviour(this) {
+      /**
+       *
+       */
+      private static final long serialVersionUID = 1L;
+
       public void action() {
         System.out.println("Cycling");
       }
@@ -31,6 +42,11 @@ public class SimpleAgent extends Agent {
   }
 
   private class StopBehaviour extends Behaviour {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     // The action is simple: just repeat the behaviour until the iterator reach the
     // desired
     // amount of printings
@@ -40,6 +56,11 @@ public class SimpleAgent extends Agent {
         // This OneShotBehaviour is added to the queue of behaviours and ends the
         // cycling
         myAgent.addBehaviour(new OneShotBehaviour(myAgent) {
+          /**
+           *
+           */
+          private static final long serialVersionUID = 1L;
+
           public void action() {
             System.out.println("Cycling - This one corresponds to the OneShotBehaviour");
             myAgent.doDelete();
