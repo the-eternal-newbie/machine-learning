@@ -13,47 +13,52 @@ public class SimpleLinearRegression {
     private final static double[] x_data = new double[100];
     private final static double[] y_data = new double[100];
 
-    public static void main(String[] args) {
-        String csvFile = "data/salary_dataset.csv";
-        BufferedReader br = null;
+    public static void main(String[] args) throws IOException {
         String line = "";
         String cvsSplitBy = ",";
-
-        try {
-            br = new BufferedReader(new FileReader(csvFile));
-            int n = 0;
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(cvsSplitBy);
-                if (n > 0) {
-                    System.out.println("Year Experience = " + data[0] + ", Salary = " + data[1]);
-                    x_data[n] = Float.parseFloat(data[0]);
-                    y_data[n] = Float.parseFloat(data[1]);
-                } else {
-                    System.out.println("Year Experience  | Salary ");
+        String csvFile = "";
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Please specify the dataset file (just hit enter to introduce custom data): ");
+        csvFile = br.readLine();
+        if (csvFile != "") {
+            try {
+                br = new BufferedReader(new FileReader("data/" + csvFile));
+                int n = 0;
+                while ((line = br.readLine()) != null) {
+                    String[] data = line.split(cvsSplitBy);
+                    if (n > 0) {
+                        System.out.println("Year Experience = " + data[0] + ", Salary = " + data[1]);
+                        x_data[n] = Float.parseFloat(data[0]);
+                        y_data[n] = Float.parseFloat(data[1]);
+                    } else {
+                        System.out.println("Year Experience  | Salary ");
+                    }
+                    n++;
                 }
-                n++;
-            }
-            process(x_data, y_data);
-            System.out.print("\nSimple linear regression equation: " + equation());
-            for (int i = 0; i < n; i++) {
-                System.out.print(String.format("\nx: %.2f | predicted y: %.2f", x_data[i], predict(x_data[i])));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                process(x_data, y_data);
+                System.out.print("\nSimple linear regression equation: " + equation());
+                for (int i = 0; i < n; i++) {
+                    System.out.print(String.format("\nx: %.2f | predicted y: %.2f", x_data[i], predict(x_data[i])));
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+        } else {
+            custom_dataset();
         }
     }
 
-    public static void old_main(String[] args) throws IOException {
+    public static void custom_dataset() throws IOException {
         int n = 0;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Please specify the dataset size: ");
@@ -117,7 +122,7 @@ public class SimpleLinearRegression {
 
     public static String equation() {
         StringBuilder s = new StringBuilder();
-        s.append(String.format("%.2f + %.2f x", beta_0(), beta_1()));
+        s.append(String.format("%.2f + %.2fx", beta_0(), beta_1()));
         return s.toString();
     }
 }
