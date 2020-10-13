@@ -49,10 +49,6 @@ public class SimpleLinearRegression {
                     }
                     System.out.print(String.format("\nx: %.2f | predicted y: %.2f\n", x_hat, predict(x_hat)));
                 }
-                // for (int i = 0; i < n; i++) {
-                //     System.out.print(String.format("\nx: %.2f | predicted y: %.2f", x_data[i], predict(x_data[i])));
-                // }
-
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -68,37 +64,6 @@ public class SimpleLinearRegression {
             }
         } else {
             custom_dataset();
-        }
-    }
-
-    public static void custom_dataset() throws IOException {
-        int n = 0;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Please specify the dataset size: ");
-        try {
-            n = Integer.parseInt(br.readLine());
-        } catch (NumberFormatException nfe) {
-            System.err.println("Invalid Format!");
-        }
-
-        for (int i = 0; i < n; i++) {
-            System.out.print("Enter x: ");
-            try {
-                x_data[i] = Integer.parseInt(br.readLine());
-            } catch (NumberFormatException nfe) {
-                System.err.println("Invalid Format!");
-            }
-            System.out.print("Enter y: ");
-            try {
-                y_data[i] = Integer.parseInt(br.readLine());
-            } catch (NumberFormatException nfe) {
-                System.err.println("Invalid Format!");
-            }
-        }
-        process(x_data, y_data);
-        System.out.print("\nSimple linear regression equation: " + equation());
-        for (int i = 0; i < n; i++) {
-            System.out.print(String.format("\nx: %.2f | predicted y: %.2f", x_data[i], predict(x_data[i])));
         }
     }
 
