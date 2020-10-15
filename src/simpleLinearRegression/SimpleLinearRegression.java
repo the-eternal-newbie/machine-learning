@@ -20,50 +20,46 @@ public class SimpleLinearRegression {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Please specify the dataset file (just hit enter to introduce custom data): ");
         csvFile = br.readLine();
-        if (csvFile != "") {
-            try {
-                br = new BufferedReader(new FileReader("data/" + csvFile));
-                int n = 0;
-                while ((line = br.readLine()) != null) {
-                    String[] data = line.split(cvsSplitBy);
-                    if (n > 0) {
-                        System.out.println("Year Experience = " + data[0] + ", Salary = " + data[1]);
-                        x_data[n] = Float.parseFloat(data[0]);
-                        y_data[n] = Float.parseFloat(data[1]);
-                    } else {
-                        System.out.println("Year Experience  | Salary ");
-                    }
-                    n++;
+        try {
+            br = new BufferedReader(new FileReader("data/" + csvFile));
+            int n = 0;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(cvsSplitBy);
+                if (n > 0) {
+                    System.out.println("Year Experience = " + data[0] + ", Salary = " + data[1]);
+                    x_data[n] = Float.parseFloat(data[0]);
+                    y_data[n] = Float.parseFloat(data[1]);
+                } else {
+                    System.out.println("Year Experience  | Salary ");
                 }
-                process(x_data, y_data);
-                System.out.print("\nSimple linear regression equation: " + equation());
-                
-                br = new BufferedReader(new InputStreamReader(System.in));
-                double x_hat = 0.0;
-                while(x_hat >= 0) {                    
-                    System.out.print("\nPlease specify the x value to predict y: ");
-                    try {
-                        x_hat = Float.parseFloat(br.readLine());
-                    } catch (NumberFormatException nfe) {
-                        break;
-                    }
-                    System.out.print(String.format("\nx: %.2f | predicted y: %.2f\n", x_hat, predict(x_hat)));
+                n++;
+            }
+            process(x_data, y_data);
+            System.out.print("\nSimple linear regression equation: " + equation());
+            
+            br = new BufferedReader(new InputStreamReader(System.in));
+            double x_hat = 0.0;
+            while(x_hat >= 0) {                    
+                System.out.print("\nPlease specify the x value to predict y: ");
+                try {
+                    x_hat = Float.parseFloat(br.readLine());
+                } catch (NumberFormatException nfe) {
+                    break;
                 }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                System.out.print(String.format("\nx: %.2f | predicted y: %.2f\n", x_hat, predict(x_hat)));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        } else {
-            custom_dataset();
         }
     }
 
