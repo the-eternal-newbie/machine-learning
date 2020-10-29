@@ -1,8 +1,6 @@
 package multipleLinearRegression;
 
 import jade.core.Agent;
-import jade.domain.DFService;
-import jade.domain.FIPAException;
 import jade.core.behaviours.OneShotBehaviour;
 
 public class IntelligentAgentMLR extends Agent {
@@ -17,19 +15,6 @@ public class IntelligentAgentMLR extends Agent {
         myGui = new IntelligentAgentGUI(this);
         myGui.showGui();
     }
-
-    // protected void takeDown() {
-    //     // Deregister from the yellow pages
-    //     try {
-    //         DFService.deregister(this);
-    //     } catch (FIPAException fe) {
-    //         fe.printStackTrace();
-    //     }
-    //     // Close the GUI
-    //     myGui.dispose();
-    //     // Printout a dismissal message
-    //     System.out.println("Seller-agent " + getAID().getName() + " terminating.");
-    // }
 
     public void predict(final Double x1, final Double x2) {
         addBehaviour(new OneShotBehaviour() {
