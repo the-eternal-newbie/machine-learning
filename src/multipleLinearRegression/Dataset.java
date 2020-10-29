@@ -17,7 +17,7 @@ public class Dataset {
         String cvsSplitBy = ",";
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try {
-            br = new BufferedReader(new FileReader("../data/" + csvFile));
+            br = new BufferedReader(new FileReader("data/" + csvFile));
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(cvsSplitBy);
                 if (n > 0) {
