@@ -43,13 +43,13 @@ public class MultipleLinearRegression {
                     + (sigmaX2 * sigmaX1Y * sigmaX12) - (sigmaX2Y * sigmaXsqr1 * sigmaX2)
                     - (sigmaX12 * sigmaX12 * sigmaY) - (sigmaXsqr2 * sigmaX1Y * sigmaX1)) / d);
 
-            beta_1 = (((n * sigmaX1Y * sigmaXsqr2) + (sigmaY * sigmaX12 * sigmaX2)
-                    + (sigmaX2 * sigmaX1 * sigmaX2Y) - (sigmaX2 * sigmaX1Y * sigmaX2)
-                    - (sigmaX2Y * sigmaX12 * n) - (sigmaXsqr2 * sigmaX1 * sigmaY)) / d);
+            beta_1 = (((n * sigmaX1Y * sigmaXsqr2) + (sigmaY * sigmaX12 * sigmaX2) + (sigmaX2 * sigmaX1 * sigmaX2Y)
+                    - (sigmaX2 * sigmaX1Y * sigmaX2) - (sigmaX2Y * sigmaX12 * n) - (sigmaXsqr2 * sigmaX1 * sigmaY))
+                    / d);
 
-            beta_2 = (((n * sigmaXsqr1 * sigmaX2Y) + (sigmaX1 * sigmaX1Y * sigmaX2)
-                    + (sigmaY * sigmaX1 * sigmaX12) - (sigmaX2 * sigmaXsqr1 * sigmaY)
-                    - (sigmaX12 * sigmaX1Y * n) - (sigmaX2Y * sigmaX1 * sigmaX1)) / d);
+            beta_2 = (((n * sigmaXsqr1 * sigmaX2Y) + (sigmaX1 * sigmaX1Y * sigmaX2) + (sigmaY * sigmaX1 * sigmaX12)
+                    - (sigmaX2 * sigmaXsqr1 * sigmaY) - (sigmaX12 * sigmaX1Y * n) - (sigmaX2Y * sigmaX1 * sigmaX1))
+                    / d);
         }
     }
 
