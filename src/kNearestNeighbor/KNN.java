@@ -50,7 +50,6 @@ public class KNN {
             double near = distancesCopy.get(i);
             int index = distances.indexOf(near);
             double size = yData[index];
-            System.out.println(size);
             if(size == 1.0) {
                 medium++;
             }

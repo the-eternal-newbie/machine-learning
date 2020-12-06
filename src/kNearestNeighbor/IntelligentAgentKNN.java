@@ -20,9 +20,9 @@ public class IntelligentAgentKNN extends Agent {
             private static final long serialVersionUID = 1L;
             public void action() {
                 predicted_y = knn.predict(x1, x2);
-                // StringBuilder s = new StringBuilder();
-                // s.append(String.format("x_1 = %.2f | x_2 = %.2f | y_hat = %c", x1, x2, predicted_y));
-                System.out.println(predicted_y);
+                StringBuilder s = new StringBuilder();
+                s.append(String.format("x_1 = %.2f | x_2 = %.2f | predictedClass = %c", x1, x2, predicted_y));
+                System.out.println(s);
             }
         });
     }
