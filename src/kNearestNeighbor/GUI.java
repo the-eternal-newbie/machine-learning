@@ -1,17 +1,17 @@
-package multipleLinearRegression;
+package kNearestNeighbor;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-class IntelligentAgentGUI extends JFrame {
+public class GUI extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private IntelligentAgentMLR myAgent;
+    private IntelligentAgentKNN myAgent;
 
     private JTextField x1Field, x2Field;
 
-    IntelligentAgentGUI(IntelligentAgentMLR a) {
+    GUI(IntelligentAgentKNN a) {
         super(a.getLocalName());
 
         myAgent = a;
@@ -36,7 +36,7 @@ class IntelligentAgentGUI extends JFrame {
                     x1Field.setText("");
                     x2Field.setText("");
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(IntelligentAgentGUI.this, "Invalid values. " + e.getMessage(),
+                    JOptionPane.showMessageDialog(GUI.this, "Invalid values. " + e.getMessage(),
                             "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -49,7 +49,7 @@ class IntelligentAgentGUI extends JFrame {
         // the GUI using the button on the upper right corner
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                System.out.println("Intelligent MLR Agent terminating.");
+                System.out.println("Intelligent KNN Agent terminating.");
                 myAgent.doDelete();
             }
         });

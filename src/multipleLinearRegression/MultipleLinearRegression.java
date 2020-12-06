@@ -1,5 +1,6 @@
 package multipleLinearRegression;
 
+import dataset.Dataset;
 public class MultipleLinearRegression {
     private int n;
     private boolean trained = false;
@@ -7,8 +8,8 @@ public class MultipleLinearRegression {
     private double[][] xData = new double[2][100];
     private double sigmaX1, sigmaX2, sigmaX12, sigmaXsqr1, sigmaXsqr2, d, beta_0, beta_1, beta_2 = 0.0;
 
-    public MultipleLinearRegression(String filename) {
-        Dataset data = new Dataset(filename);
+    public MultipleLinearRegression(String filename, int dim) {
+        Dataset data = new Dataset(filename, dim);
         n = data.getSize();
         xData = data.getXData();
         yData = data.getYData();
@@ -16,7 +17,7 @@ public class MultipleLinearRegression {
 
     private void determinant() {
         if (!trained) {
-            for (int i = 0; i < n; i++) {
+            for (int i = 1; i < n; i++) {
                 sigmaX1 += xData[0][i];
                 sigmaX2 += xData[1][i];
                 sigmaX12 += xData[0][i] * xData[1][i];
@@ -34,7 +35,7 @@ public class MultipleLinearRegression {
             double sigmaX1Y = 0.0;
             double sigmaX2Y = 0.0;
 
-            for (int i = 0; i < n; i++) {
+            for (int i = 1; i < n; i++) {
                 sigmaY += yData[i];
                 sigmaX1Y += xData[0][i] * yData[i];
                 sigmaX2Y += xData[1][i] * yData[i];
