@@ -11,6 +11,10 @@ import java.io.InputStreamReader;
 public class Dataset {
     private final static double[][] x_data = new double[20][200];
     private final static double[] y_data = new double[200];
+    public double[] stdDeviationX = new double[200];
+    public double[] miuX = new double[200];
+    public double stdDeviationY = 0.0;
+    public double miuY = 0;
     private int n = 0;
     private int x_dim = 0;
 
@@ -86,16 +90,14 @@ public class Dataset {
     }
 
     public void std() {
-        double stdDeviationY = stdDeviation('y', 0);
-        double miuY = miu('y', 0);
-        double[] stdDeviationX = new double[200];
-        double[] miuX = new double[200];
+        stdDeviationY = stdDeviation('y', 0);
+        miuY = miu('y', 0);
         for(int i = 0; i < x_dim; i++) {
             stdDeviationX[i] =  stdDeviation('x', i);
             miuX[i] = miu('x', i);
         }
         for (int i = 1; i < n; i++) {
-            y_data[i] = (y_data[i] - miuY) / stdDeviationY;
+            // y_data[i] = (y_data[i] - miuY) / stdDeviationY;
             for(int j = 0; j < x_dim; j++) {
                 x_data[j][i] =  (x_data[j][i] - miuX[j]) / stdDeviationX[j];
             }    

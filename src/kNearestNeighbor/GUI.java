@@ -49,7 +49,7 @@ public class GUI extends JFrame {
         // the GUI using the button on the upper right corner
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                System.out.println("Intelligent MLR Agent terminating.");
+                System.out.println("Intelligent KNN Agent terminating.");
                 myAgent.doDelete();
             }
         });
