@@ -8,7 +8,7 @@ public class IntelligentAgentMLR extends Agent {
     private IntelligentAgentGUI myGui;
     private double predicted_y;
     private static final long serialVersionUID = 1L;
-    private static final MultipleLinearRegression mlr = new MultipleLinearRegression("startups.csv");
+    private static final MultipleLinearRegression mlr = new MultipleLinearRegression("startups.csv", 2);
 
     protected void setup() {
         System.out.println("Agent " + getLocalName() + " started.");
